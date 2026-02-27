@@ -50,27 +50,27 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        working-directory: ./projectflow-api
+        working-directory: projectflow-api
 
       - name: Lint
         run: pnpm run lint
-        working-directory: ./projectflow-api
+        working-directory: projectflow-api
 
       - name: Type check
         run: pnpm run type-check
-        working-directory: ./projectflow-api
+        working-directory: projectflow-api
 
       - name: Unit tests
         run: pnpm run test
-        working-directory: ./projectflow-api
+        working-directory: projectflow-api
 
       # - name: Integration tests
       #   run: pnpm run test:integration
-      #   working-directory: ./projectflow-api
+      #   working-directory: projectflow-api
       #   env:
       #     DATABASE_URL: postgresql://postgres:postgres@localhost:5432/projectflow_test
       #     REDIS_URL: redis://localhost:6379
 
       - name: Build
         run: pnpm run build
-        working-directory: ./projectflow-api
+        working-directory: projectflow-api
