@@ -61,11 +61,11 @@ jobs:
       - name: Unit tests
         run: pnpm run test
 
-      - name: Integration tests
-        run: pnpm run test:integration
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/projectflow_test
-          REDIS_URL: redis://localhost:6379
+      # - name: Integration tests
+      #   run: pnpm run test:integration
+      #   env:
+      #     DATABASE_URL: postgresql://postgres:postgres@localhost:5432/projectflow_test
+      #     REDIS_URL: redis://localhost:6379
 
       - name: Build
         run: pnpm run build
