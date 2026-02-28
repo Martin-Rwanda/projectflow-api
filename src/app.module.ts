@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerModule } from 'nestjs-pino';
 import { validationSchema } from './config/env.validation';
+import { IamModule } from './modules/iam/iam.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { validationSchema } from './config/env.validation';
         logging: config.get('NODE_ENV') === 'development',
       }),
     }),
+    IamModule,
   ],
 })
 export class AppModule {}
