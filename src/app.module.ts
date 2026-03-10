@@ -1,9 +1,12 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerModule } from 'nestjs-pino';
 import { validationSchema } from './config/env.validation';
 import { IamModule } from './modules/iam/iam.module';
+import { OrganizationsModule } from './modules/organizations/organizations.module';
+import { TenantMiddleware } from './common/middleware/tenant.middleware';
+import { OrganizationOrmEntity } from './modules/organizations/infrastructure/persistence/typeorm/organization.orm-entity';
 
 @Module({
   imports: [
@@ -41,7 +44,19 @@ import { IamModule } from './modules/iam/iam.module';
         logging: config.get('NODE_ENV') === 'development',
       }),
     }),
+    TypeOrmModule.forFeature([OrganizationOrmEntity]),
     IamModule,
+    OrganizationsModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(TenantMiddleware)
+      .forRoutes(
+        { path: 'organizations/:orgSlug', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/invitations', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/invitations/:token/accept', method: RequestMethod.ALL },
+      );
+  }
+}
