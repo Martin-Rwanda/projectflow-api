@@ -9,6 +9,8 @@ import { TenantMiddleware } from './common/middleware/tenant.middleware';
 import { OrganizationOrmEntity } from './modules/organizations/infrastructure/persistence/typeorm/organization.orm-entity';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { TasksModule } from './modules/tasks/tasks.module';
+import { SprintsModule } from './modules/sprints/sprints.module';
+import { CommentsModule } from './modules/comments/comments.module';
 
 @Module({
   imports: [
@@ -51,6 +53,8 @@ import { TasksModule } from './modules/tasks/tasks.module';
     OrganizationsModule,
     ProjectsModule,
     TasksModule,
+    SprintsModule,
+    CommentsModule,
   ],
 })
 export class AppModule implements NestModule {
@@ -65,6 +69,23 @@ export class AppModule implements NestModule {
         { path: 'organizations/:orgSlug/projects/:projectId', method: RequestMethod.ALL },
         { path: 'organizations/:orgSlug/tasks', method: RequestMethod.ALL },
         { path: 'organizations/:orgSlug/tasks/:taskId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints/:sprintId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints/:sprintId/tasks', method: RequestMethod.ALL },
+        {
+          path: 'organizations/:orgSlug/sprints/:sprintId/tasks/:taskId',
+          method: RequestMethod.ALL,
+        },
+        { path: 'organizations/:orgSlug/comments', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/comments/task/:taskId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/comments/:commentId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/comments/:commentId/reactions', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints/:sprintId/start', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints/:sprintId/complete', method: RequestMethod.ALL },
+        {
+          path: 'organizations/:orgSlug/sprints/:sprintId/tasks/:taskId',
+          method: RequestMethod.ALL,
+        },
       );
   }
 }

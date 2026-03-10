@@ -1,0 +1,8 @@
+export class UpdateCommentCommand {
+  constructor(
+    public readonly commentId: string,
+    public readonly orgId: string,
+    public readonly userId: string,
+    public readonly body: object,
+  ) {}
+}
