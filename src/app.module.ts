@@ -92,5 +92,33 @@ export class AppModule implements NestModule {
       { path: 'organizations/:orgSlug/time/active', method: RequestMethod.ALL },
       { path: 'organizations/:orgSlug/time/entries', method: RequestMethod.ALL },
     );
+    consumer
+      .apply(TenantMiddleware)
+      .forRoutes(
+        { path: 'organizations/:orgSlug', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/invitations', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/invitations/:token/accept', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/projects', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/projects/:projectId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/tasks', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/tasks/:taskId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints/:sprintId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints/:sprintId/tasks', method: RequestMethod.ALL },
+        {
+          path: 'organizations/:orgSlug/sprints/:sprintId/tasks/:taskId',
+          method: RequestMethod.ALL,
+        },
+        { path: 'organizations/:orgSlug/comments', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/comments/task/:taskId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/comments/:commentId', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/comments/:commentId/reactions', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints/:sprintId/start', method: RequestMethod.ALL },
+        { path: 'organizations/:orgSlug/sprints/:sprintId/complete', method: RequestMethod.ALL },
+        {
+          path: 'organizations/:orgSlug/sprints/:sprintId/tasks/:taskId',
+          method: RequestMethod.ALL,
+        },
+      );
   }
 }
